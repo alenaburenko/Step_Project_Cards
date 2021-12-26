@@ -1,9 +1,6 @@
 import constans from "./constans.js";
 import Requests from "./Request.js";
 
-const token = localStorage.token;
-console.log(token);
-
 class Cards {
   constructor({ description, title, patientName, id }, url) {
     this.description = description;
@@ -78,13 +75,13 @@ class Cards {
 
   closeCardHandler = (e) => {
     const request = new Requests(constans.URL);
-    request.delete(this.id, token).then((resp) => {
+    request.delete(this.id, constans.token).then((resp) => {
       if (resp.status === 200) {
         e.target.closest(".card-wrapper").remove();
 
         const getRequest = new Requests(constans.URL);
         getRequest
-          .get("", token)
+          .get("", constans.token)
           .then((resp) => resp.json())
           .then((data) => console.log(data));
         console.log("card was removed successfully!");
@@ -121,7 +118,7 @@ class Cards {
       newForm.style.display = "none";
       const request = new Requests(constans.URL);
       request
-        .put("", JSON.stringify(data), this.id, token)
+        .put("", JSON.stringify(data), this.id, constans.token)
         .then((resp) => resp.json())
         .then((data) => {
           const card = new Cards(data, constans.fieldCardsContainer);
