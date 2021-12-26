@@ -29,11 +29,12 @@ class CreateSelect extends Modal {
         wrapper.classList.add("wrapper__modal-check-doctor")         
               this.select.addEventListener("click",(e) => {
                     e.preventDefault()
-                    if(select.get() === "Cardiologist"){
+                    console.log(this.select);
+                    if(this.select.value === "Cardiologist"){
                         VisitCardiologist.render()
-                    }else if(select.get() === "Therapist"){
+                    }else if(this.select.value === "Therapist"){
                         VisitTherapist.render()
-                    }else if(select.get() === "Dentist"){
+                    }else if(this.select.value === "Dentist"){
                         const visitdentist = new VisitDentist(constans.fieldCardsContainer, "");
                         visitdentist.render()
                     }

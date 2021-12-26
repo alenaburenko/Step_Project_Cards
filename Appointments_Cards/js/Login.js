@@ -72,8 +72,9 @@ class Login extends Modal {
       .then((resp) => resp.json())
       .then((data) => {
           if(data.length !==  0){
-            const card = new Cards(data, constans.fieldCardsContainer);
-          card.render();
+        //     const card = new Cards(data, constans.fieldCardsContainer);
+        //   card.render();
+        console.log("sucsses");
           }else{
               console.log("error");
           }
