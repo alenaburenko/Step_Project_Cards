@@ -90,6 +90,86 @@ class Visit {
     this.modalURL.append(form);
   }
 
+  editedRender() {
+    const form = document.createElement("form");
+    form.addEventListener("submit", this.submitHandler);
+    form.id = "visit-form";
+
+    const purposeLabel = document.createElement("label");
+    purposeLabel.textContent = "Purpose of visit:";
+    // purposeLabel.setAttribute("for", "purpose");
+
+    const purposeOfVisit = new Input({
+      type: "text",
+      name: "purpose",
+      isRequired: true,
+      id: "purpose",
+      classes: ["purpose-of-visit", "card-input"],
+      placeholder: "start typing...",
+      errorText: "all fields must be filled!",
+    }).render();
+    purposeLabel.append(purposeOfVisit);
+
+    const descriptionLabel = document.createElement("label");
+    descriptionLabel.textContent = "Short description of visit:";
+    // descriptionLabel.setAttribute("for", "description");
+
+    const visitDescription = new Input({
+      type: "text",
+      name: "description",
+      isRequired: true,
+      id: "description",
+      classes: ["visit-description", "card-input"],
+      placeholder: "start typing...",
+      errorText: "all fields must be filled!",
+    }).render();
+    descriptionLabel.append(visitDescription);
+
+    const patientNameLabel = document.createElement("label");
+    patientNameLabel.textContent = "Full name of patient:";
+    // patientNameLabel.setAttribute("for", "patientName");
+
+    const patientName = new Input({
+      type: "text",
+      name: "patientName",
+      isRequired: true,
+      id: "patientName",
+      classes: ["patient-name", "card-input"],
+      placeholder: "start typing...",
+      errorText: "all fields must be filled!",
+    }).render();
+    patientNameLabel.append(patientName);
+
+    const dateOfVisitLabel = document.createElement("label");
+    dateOfVisitLabel.textContent = "Full name of patient:";
+    // dateOfVisitLabel.setAttribute("for", "visitDate");
+
+    const dateOfVisit = new Input({
+      type: "date",
+      name: "visitDate",
+      isRequired: true,
+      id: "visitDate",
+      classes: ["visit-date", "card-input"],
+      placeholder: "start typing...",
+      errorText: "all fields must be filled!",
+    }).render();
+    dateOfVisitLabel.append(dateOfVisit);
+
+    const btn = document.createElement("button");
+    btn.textContent = "Button";
+    btn.id = "submit-btn";
+    btn.classList.add("btn-success", "btn", "rounded");
+
+    form.append(
+      purposeLabel,
+      descriptionLabel,
+      patientNameLabel,
+      dateOfVisitLabel,
+      btn
+    );
+    this.cardsWindowURL.append(form);
+  }
+
   submitHandler(e) {
     e.preventDefault();
     const inputs = [...document.getElementsByClassName("card-input")];
@@ -103,7 +183,7 @@ class Visit {
     };
 
     const form = document.getElementById("visit-form");
-    form.style.display = "none";
+    form.remove();
 
     const request = new Requests(constans.URL);
     request
