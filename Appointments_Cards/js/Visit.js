@@ -4,8 +4,6 @@ import Requests from "./Request.js";
 import constans from "./constans.js";
 import Cards from "./Cards.js";
 
-const token = localStorage.token;
-
 class Visit {
   constructor(modalURL, cardsWindowURL) {
     this.modalURL = modalURL;
@@ -109,7 +107,7 @@ class Visit {
 
     const request = new Requests(constans.URL);
     request
-      .post(JSON.stringify(data), "", token)
+      .post(JSON.stringify(data), "", constans.token)
       .then((resp) => resp.json())
       .then((data) => {
         const card = new Cards(data, constans.fieldCardsContainer);
@@ -118,7 +116,7 @@ class Visit {
 
     const getRequest = new Requests(constans.URL);
     getRequest
-      .get("", token)
+      .get("", constans.token)
       .then((resp) => resp.json())
       .then((data) => console.log(data));
   }
