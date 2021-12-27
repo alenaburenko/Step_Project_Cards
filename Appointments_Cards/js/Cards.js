@@ -1,5 +1,6 @@
 import constans from "./constans.js";
 import Requests from "./Request.js";
+import Visit from "./Visit.js";
 
 class Cards {
   constructor({ description, title, patientName, id }, url) {
@@ -90,12 +91,16 @@ class Cards {
   };
 
   editHandler = (e) => {
+    const visit = new Visit("", constans.fieldCardsContainer);
+    visit.editedRender();
     const form = document.getElementById("visit-form");
-    const newForm = form.cloneNode(true);
-    newForm.style.display = "flex";
-    const [purpose, description, patientName, visitDate] = newForm;
 
-    const btn = newForm.lastChild;
+    // const newForm = form.cloneNode(true);
+    form.style.display = "flex";
+    form.style.position = "absolute";
+    const [purpose, description, patientName, visitDate] = form;
+
+    const btn = form.lastChild;
     btn.id = "edit-btn";
     btn.textContent = "Edit";
     console.log(purpose.value);
@@ -104,9 +109,9 @@ class Cards {
     patientName.value = "type new value";
 
     this.cardWrapper.remove();
-    constans.fieldCardsContainer.append(newForm);
+    constans.fieldCardsContainer.append(form);
 
-    newForm.addEventListener("submit", (e) => {
+    form.addEventListener("submit", (e) => {
       e.preventDefault();
 
       const data = {
@@ -115,7 +120,7 @@ class Cards {
         patientName: patientName.value,
       };
 
-      newForm.style.display = "none";
+      form.remove();
       const request = new Requests(constans.URL);
       request
         .put("", JSON.stringify(data), this.id, constans.token)
