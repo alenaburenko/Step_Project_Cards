@@ -4,20 +4,14 @@ const ROOT = document.getElementById("root");
 const URL = "https://ajax.test-danit.com/api/v2/cards";
 const token = localStorage.token;
 const fieldCardsContainer = document.getElementsByClassName("field-cards")[0];
-
+const modalContent = document.getElementsByClassName("modal-content");
 
 export default {
-    loginButton,
-    ROOT,
-    createVisitButton,
-    URL,
-    token,
-    fieldCardsContainer,
-}
-
-
-
-
-
-
-
+  loginButton,
+  ROOT,
+  createVisitButton,
+  URL,
+  token,
+  fieldCardsContainer,
+  modalContent,
+};

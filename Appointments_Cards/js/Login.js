@@ -6,88 +6,96 @@ import constans from "./constans.js";
 import Cards from "./Cards.js";
 
 class Login extends Modal {
-    constructor(id, classes, text) {
-        super(id, classes, text);
-        this.modalInside = this.renderAutorisationForm();
-    }
+  constructor(id, classes, text) {
+    super(id, classes, text);
+    this.modalInside = this.renderAutorisationForm();
+  }
 
-    renderAutorisationForm() {
-        const form = document.createElement("form");
-        form.id = "login-form";
+  renderAutorisationForm() {
+    const form = document.createElement("form");
+    form.id = "login-form";
 
-        const inputLogin = new Input({
-            type: "email",
-            name: "login",
-            isRequired: true,
-            id: "login",
-            classes: [],
-            placeholder: "Ваш логин",
-            errorText: "Enter login",
-        }).render();
+    const inputLogin = new Input({
+      type: "email",
+      name: "login",
+      isRequired: true,
+      id: "login",
+      classes: [],
+      placeholder: "Ваш логин",
+      errorText: "Enter login",
+    }).render();
 
-        const inputPassword = new Input({
-            type: "password",
-            name: "password",
-            isRequired: true,
-            id: "password",
-            classes: [],
-            placeholder: "Ваш пароль",
-            errorText: "Enter password",
-        }).render();
+    const inputPassword = new Input({
+      type: "password",
+      name: "password",
+      isRequired: true,
+      id: "password",
+      classes: [],
+      placeholder: "Ваш пароль",
+      errorText: "Enter password",
+    }).render();
 
-        const submit = new Input({
-            type: "submit",
-            name: "",
-            isRequired: true,
-            id: "submit",
-            classes: [],
-            placeholder: "Авторизация",
-            errorText: "",
-        }).render();
-        submit.addEventListener("click", (e) => {
-            e.preventDefault()
-            const email = inputLogin.value
-            const password = inputPassword.value
-            const data = {email,password}
-            const request = new Requests(constans.URL)
-            request.post(JSON.stringify(data),"/login")
-            .then(response => {
-                if (response.status >= 200 && response.status <= 399) {
-                    return response.text()
-                }
-            })
-            .then(token => {
-                if(token){
-                localStorage.setItem("token", token)
-                constans.loginButton.classList.add("btn-none")
-                this.modal.remove()
-                constans.createVisitButton.classList.remove("btn-none")
-                document.getElementById("filter").style.display = "flex";
-                }else {
-                    alert('Ошибка! Неверный email или пароль.')
-                }
-            }) 
-        request
-      .get("", constans.token)
-      .then((resp) => resp.json())
-      .then((data) => {
-          if(data.length !==  0){
-        //     const card = new Cards(data, constans.fieldCardsContainer);
-        //   card.render();
-        console.log("sucsses");
-          }else{
-              console.log("error");
+    const submit = new Input({
+      type: "submit",
+      name: "",
+      isRequired: true,
+      id: "submit",
+      classes: [],
+      placeholder: "Авторизация",
+      errorText: "",
+    }).render();
+    submit.addEventListener("click", (e) => {
+      e.preventDefault();
+      const email = inputLogin.value;
+      const password = inputPassword.value;
+      const data = { email, password };
+      const request = new Requests(constans.URL);
+      request
+        .post(JSON.stringify(data), "/login")
+        .then((response) => {
+          if (response.status >= 200 && response.status <= 399) {
+            return response.text();
           }
-      })
         })
-         
-        form.append(inputLogin, inputPassword, submit);
+        .then((token) => {
+          if (token) {
+            localStorage.setItem("token", token);
+            constans.loginButton.classList.add("btn-none");
+            this.modal.remove();
+            constans.createVisitButton.classList.remove("btn-none");
+            document.getElementById("filter").style.display = "flex";
+          } else {
+            alert("Ошибка! Неверный email или пароль.");
+          }
+        });
+      request
+        .get("", constans.token)
+        .then((resp) => resp.json())
+        .then((data) => {
+          console.log(data);
+          if (data.length !== 0) {
+            const fieldForCards =
+              document.getElementsByClassName("field-cards")[0];
+            const textNoItems =
+              document.getElementsByClassName("visit__field-text")[0];
+            textNoItems.style.display = "none";
+            fieldForCards.className = "field-cards-modified";
 
-        return form;
-    }
+            data.forEach((element) => {
+              const card = new Cards(element, constans.fieldCardsContainer);
+              card.render();
+            });
+            console.log("sucsses");
+          } else {
+            console.log("error");
+          }
+        });
+    });
+
+    form.append(inputLogin, inputPassword, submit);
+
+    return form;
+  }
 }
 
-
-export default Login
-
-// data.length ===  0 ? console.log("error") : console.log("success"))
+export default Login;
