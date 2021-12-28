@@ -12,9 +12,9 @@ class CreateSelect extends Modal {
     const wrapper = document.createElement("div");
     const createVisitSelect = new Select();
     const select = createVisitSelect.create();
-    createVisitSelect.addOption("Терапевт", "therapist");
-    createVisitSelect.addOption("Стоматолог", "dentist");
-    createVisitSelect.addOption("Кардиолог", "cardiologist");
+    createVisitSelect.addOption("Therapist", "Therapist");
+    createVisitSelect.addOption("Dentist", "Dentist");
+    createVisitSelect.addOption("Cardiologist", "Cardiologist");
     createVisitSelect.baseAttr("createVisitSelect");
     wrapper.classList.add("form__modal-check-doctor");
     const label = document.createElement("lebel");
@@ -23,11 +23,12 @@ class CreateSelect extends Modal {
 
     select.addEventListener("change", (e) => {
       e.preventDefault();
-      if (createVisitSelect.value === "Cardiologist") {
+      console.log(select);
+      if (select.value === "Cardiologist") {
         VisitCardiologist.render();
-      } else if (createVisitSelect.value === "Therapist") {
+      } else if (select.value === "Therapist") {
         VisitTherapist.render();
-      } else if (createVisitSelect.value === "Dentist") {
+      } else if (select.value === "Dentist") {
         console.log(constans.modalContent);
         const visitdentist = new VisitDentist(constans.modalContent[0], "");
         visitdentist.render();
