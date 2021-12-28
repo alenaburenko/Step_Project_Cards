@@ -84,7 +84,7 @@ class Login extends Modal {
             data.forEach((element) => {
               const card = new Cards(element, constans.fieldCardsContainer);
               card.render();
-            }); 
+            });
             console.log("sucsses");
           } else {
             console.log("error");
@@ -99,4 +99,3 @@ class Login extends Modal {
 }
 
 export default Login;
-
