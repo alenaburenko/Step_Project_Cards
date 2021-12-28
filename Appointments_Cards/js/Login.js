@@ -74,7 +74,6 @@ class Login extends Modal {
         .then((data) => {
           console.log(data);
           if (data.length !== 0) {
-            // was added this code from 12/26 by Serhii
             const fieldForCards =
               document.getElementsByClassName("field-cards")[0];
             const textNoItems =
@@ -85,7 +84,7 @@ class Login extends Modal {
             data.forEach((element) => {
               const card = new Cards(element, constans.fieldCardsContainer);
               card.render();
-            }); // was added this code from 12/26 by Serhii
+            }); 
             console.log("sucsses");
           } else {
             console.log("error");
@@ -101,4 +100,3 @@ class Login extends Modal {
 
 export default Login;
 
-// data.length ===  0 ? console.log("error") : console.log("success"))
