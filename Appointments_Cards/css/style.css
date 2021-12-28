@@ -18,7 +18,7 @@
   display: none;
 }
 .field-cards {
-  position: relative; /* added by Serhii 26.12 */
+  position: relative;
   margin-top: 50px;
   height: 500px;
   border: 1px solid #dee2e6;
@@ -31,7 +31,6 @@
   background-color: #dee2e6;
 }
 
-/* added by Serhii 26.12 */
 .field-cards-modified {
   margin-top: 50px;
   min-height: 500px;
@@ -41,11 +40,8 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  /* justify-content: space-around; */
-  /* align-items: center; */
   background-color: #dee2e6;
 }
-/* added by Serhii 26.12 */
 
 .visit__field-text {
   font-size: 50px;
@@ -161,14 +157,12 @@
   flex-direction: column;
 }
 .card-wrapper {
-  /* added by Serhii 26.12 */
   min-width: 290px;
   max-width: 290px;
   min-height: 200px;
   overflow: hidden;
   position: relative;
   margin: 12px;
-  /* added by Serhii 26.12 */
 }
 .showmore-btn {
   position: absolute;
