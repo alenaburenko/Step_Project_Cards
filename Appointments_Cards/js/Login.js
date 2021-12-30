@@ -59,35 +59,33 @@ class Login extends Modal {
         })
         .then((token) => {
           if (token) {
-            localStorage.setItem("token", token);
+            sessionStorage.setItem("token", token);
             constans.loginButton.classList.add("btn-none");
             this.modal.remove();
             constans.createVisitButton.classList.remove("btn-none");
             document.getElementById("filter").style.display = "flex";
-          } else {
-            alert("Ошибка! Неверный email или пароль.");
-          }
-        });
-      request
+             request
         .get("", constans.token)
         .then((resp) => resp.json())
         .then((data) => {
-          console.log(data);
           if (data.length !== 0) {
             const fieldForCards =
               document.getElementsByClassName("field-cards")[0];
             const textNoItems =
               document.getElementsByClassName("visit__field-text")[0];
             textNoItems.style.display = "none";
-            fieldForCards.className = "field-cards-modified";
-
+            fieldForCards.style.className = "field-cards-modified";
             data.forEach((element) => {
               const card = new Cards(element, constans.fieldCardsContainer);
               card.render();
             });
-            console.log("sucsses");
+            
           } else {
             console.log("error");
+          }
+        });
+          } else {
+            alert("Ошибка! Неверный email или пароль.");
           }
         });
     });
