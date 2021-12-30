@@ -6,8 +6,7 @@ import Cards from "./Cards.js";
 import Visit from "./Visit.js";
 import VisitDentist from "./VisitDentist.js";
 
-const login = new Login("modal3", ["modal", "modal1"]);
-const selectDoctors = new CreateSelect("modal3", ["modal", "modal1"]);
+
 
 constans.loginButton.addEventListener('click', logInModal);
 function logInModal(e){
@@ -21,6 +20,9 @@ constans.createVisitButton.addEventListener("click",(e) =>{
         selectDoctors.openModal();
 
 })
+
+const login = new Login("modal3", ["modal", "modal1"]);
+const selectDoctors = new CreateSelect("modal3", ["modal", "modal1"]);
 
 document.addEventListener("DOMContentLoaded", onLoad);
             function onLoad() {

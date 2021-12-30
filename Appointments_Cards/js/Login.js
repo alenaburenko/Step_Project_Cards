@@ -59,7 +59,7 @@ class Login extends Modal {
         })
         .then((token) => {
           if (token) {
-            sessionStorage.setItem("token", token);
+            localStorage.setItem("token", token);
             constans.loginButton.classList.add("btn-none");
             this.modal.remove();
             constans.createVisitButton.classList.remove("btn-none");
