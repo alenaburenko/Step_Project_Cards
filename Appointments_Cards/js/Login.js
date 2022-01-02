@@ -64,31 +64,24 @@ class Login extends Modal {
             this.modal.remove();
             constans.createVisitButton.classList.remove("btn-none");
             document.getElementById("filter").style.display = "flex";
-
-            const tokenID = localStorage.token; // edited by Serhii 28.12
             request
-              .get("", tokenID)
+              .get("", constans.token)
               .then((resp) => resp.json())
               .then((data) => {
-                console.log(data);
                 if (data.length !== 0) {
                   const fieldForCards =
                     document.getElementsByClassName("field-cards")[0];
                   const textNoItems =
                     document.getElementsByClassName("visit__field-text")[0];
-                  if (textNoItems.style.display !== "none") {
-                    textNoItems.style.display = "none";
-                    fieldForCards.className = "field-cards-modified";
-                  }
-
+                  textNoItems.style.display = "none";
+                  fieldForCards.style.className = "field-cards-modified";
                   data.forEach((element) => {
                     const card = new Cards(
                       element,
                       constans.fieldCardsContainer
                     );
-                    card.cardRender();
+                    card.render();
                   });
-                  console.log("sucsses");
                 } else {
                   console.log("error");
                 }

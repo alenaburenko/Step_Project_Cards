@@ -3,11 +3,13 @@ import Modal from "./Modal.js";
 import VisitDentist from "./VisitDentist.js";
 import constans from "./constans.js";
 import Select from "./Select.js";
+import Login from "./Login.js";
 class CreateSelect extends Modal {
   constructor(id, classes, text) {
     super(id, classes, text);
     this.modalInside = this.createSelect();
   }
+  
   createSelect() {
     const wrapper = document.createElement("div");
     const createVisitSelect = new Select();
@@ -20,22 +22,30 @@ class CreateSelect extends Modal {
     const label = document.createElement("lebel");
     label.textContent = "Choose your doctor:";
     wrapper.classList.add("wrapper__modal-check-doctor");
-
-    select.addEventListener("change", (e) => {
-      e.preventDefault();
-      console.log(select);
+  
+    select.addEventListener("change",(e) =>{
+       e.preventDefault();
+      this.chengeDoctor(select)
+    })
+     wrapper.append(label, select);
+         
+     return wrapper
+  }
+  chengeDoctor (select) {
+    console.log(select.value);
+   
       if (select.value === "Cardiologist") {
-        VisitCardiologist.render();
+        const visitdentist = new VisitDentist(constans.modalContent[0], "");
+        visitdentist.render();
       } else if (select.value === "Therapist") {
-        VisitTherapist.render();
+        const visitdentist = new VisitDentist(constans.modalContent[0], "");
+        visitdentist.render();
       } else if (select.value === "Dentist") {
-        console.log(constans.modalContent);
         const visitdentist = new VisitDentist(constans.modalContent[0], "");
         visitdentist.render();
       }
-    });
-    wrapper.append(label, select);
-    return wrapper;
-  }
+    //  this.closeModal()
+  }  
+   
 }
 export default CreateSelect;
