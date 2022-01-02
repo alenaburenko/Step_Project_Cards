@@ -12,7 +12,7 @@ class Cards {
     this.url = url;
   }
 
-  cardRender() {
+  render() {
     this.cardWrapper = document.createElement("div");
     this.cardWrapper.classList.add(
       "card-wrapper",
@@ -188,9 +188,9 @@ class Cards {
     );
 
     form.style.display = "flex";
-    const [purpose, description, patientName, visitDate] = form;
+    // const [purpose, description, patientName, visitDate] = form;
 
-    const btn = form.lastChild;
+    const btn2 = form.lastChild;
     btn.id = "edit-btn";
     btn.textContent = "Edit";
     purpose.value = "type new value";

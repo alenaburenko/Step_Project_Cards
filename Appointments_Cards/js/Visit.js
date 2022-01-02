@@ -112,7 +112,7 @@ class Visit {
       .then((resp) => resp.json())
       .then((data) => {
         const card = new Cards(data, constans.fieldCardsContainer);
-        card.cardRender();
+        card.render();
       });
 
     const getRequest = new Requests(constans.URL);
