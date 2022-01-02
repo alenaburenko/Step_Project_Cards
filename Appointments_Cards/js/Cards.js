@@ -1,6 +1,7 @@
 import constans from "./constans.js";
 import Requests from "./Request.js";
 import Visit from "./Visit.js";
+import Modal from "./Modal.js";
 
 class Cards {
   constructor({ description, title, patientName, id }, url) {
@@ -11,7 +12,7 @@ class Cards {
     this.url = url;
   }
 
-  render() {
+  cardRender() {
     this.cardWrapper = document.createElement("div");
     this.cardWrapper.classList.add(
       "card-wrapper",
@@ -76,6 +77,7 @@ class Cards {
 
   closeCardHandler = (e) => {
     const request = new Requests(constans.URL);
+    console.log(constans.token);
     request.delete(this.id, constans.token).then((resp) => {
       if (resp.status === 200) {
         e.target.closest(".card-wrapper").remove();
@@ -91,46 +93,134 @@ class Cards {
   };
 
   editHandler = (e) => {
-    const visit = new Visit("", constans.fieldCardsContainer);
-    visit.editedRender();
-    const form = document.getElementById("visit-form");
+    const modalEditWindow = new Modal(
+      "edit-modal",
+      ["modal", "modal-content"],
+      "test"
+    );
 
-    // const newForm = form.cloneNode(true);
+    e.target.closest(".card-wrapper").remove();
+    const newModal = modalEditWindow.render();
+    modalEditWindow.openModal();
+    constans.ROOT.append(newModal);
+    const modal1 = document.getElementById("modalTitle");
+
+    // const visit = new Visit(modal1, "");
+    // visit.render();
+
+    // const form = document.getElementById("visit-form");
+    // form.id = "test";
+    const form = document.createElement("form");
+    form.addEventListener("submit", this.submitHandler);
+    form.id = "edit-form";
+
+    const purposeLabel = document.createElement("label");
+    purposeLabel.textContent = "Purpose of visit:";
+    // purposeLabel.setAttribute("for", "purpose");
+
+    const purposeOfVisit = new Input({
+      type: "text",
+      name: "purpose",
+      isRequired: true,
+      id: "purpose",
+      classes: ["purpose-of-visit", "card-input"],
+      placeholder: "start typing...",
+      errorText: "all fields must be filled!",
+    }).render();
+    purposeLabel.append(purposeOfVisit);
+
+    const descriptionLabel = document.createElement("label");
+    descriptionLabel.textContent = "Short description of visit:";
+    // descriptionLabel.setAttribute("for", "description");
+
+    const visitDescription = new Input({
+      type: "text",
+      name: "description",
+      isRequired: true,
+      id: "description",
+      classes: ["visit-description", "card-input"],
+      placeholder: "start typing...",
+      errorText: "all fields must be filled!",
+    }).render();
+    descriptionLabel.append(visitDescription);
+
+    const patientNameLabel = document.createElement("label");
+    patientNameLabel.textContent = "Full name of patient:";
+    // patientNameLabel.setAttribute("for", "patientName");
+
+    const patientName = new Input({
+      type: "text",
+      name: "patientName",
+      isRequired: true,
+      id: "patientName",
+      classes: ["patient-name", "card-input"],
+      placeholder: "start typing...",
+      errorText: "all fields must be filled!",
+    }).render();
+    patientNameLabel.append(patientName);
+
+    const dateOfVisitLabel = document.createElement("label");
+    dateOfVisitLabel.textContent = "Full name of patient:";
+    // dateOfVisitLabel.setAttribute("for", "visitDate");
+
+    const dateOfVisit = new Input({
+      type: "date",
+      name: "visitDate",
+      isRequired: true,
+      id: "visitDate",
+      classes: ["visit-date", "card-input"],
+      placeholder: "start typing...",
+      errorText: "all fields must be filled!",
+    }).render();
+    dateOfVisitLabel.append(dateOfVisit);
+
+    const btn = document.createElement("button");
+    btn.textContent = "Button";
+    btn.id = "submit-btn";
+    btn.classList.add("btn-success", "btn", "rounded");
+
+    form.append(
+      purposeLabel,
+      descriptionLabel,
+      patientNameLabel,
+      dateOfVisitLabel,
+      btn
+    );
+
     form.style.display = "flex";
-    form.style.position = "absolute";
     const [purpose, description, patientName, visitDate] = form;
 
     const btn = form.lastChild;
     btn.id = "edit-btn";
     btn.textContent = "Edit";
-    console.log(purpose.value);
     purpose.value = "type new value";
     description.value = "type new value";
     patientName.value = "type new value";
 
+    modalEditWindow.append(form);
+
     this.cardWrapper.remove();
-    constans.fieldCardsContainer.append(form);
-
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const data = {
-        title: purpose.value,
-        description: description.value,
-        patientName: patientName.value,
-      };
-
-      form.remove();
-      const request = new Requests(constans.URL);
-      request
-        .put("", JSON.stringify(data), this.id, constans.token)
-        .then((resp) => resp.json())
-        .then((data) => {
-          const card = new Cards(data, constans.fieldCardsContainer);
-          card.render();
-        });
-    });
   };
+
+  submitHandler(e) {
+    e.preventDefault();
+
+    const data = {
+      title: purpose.value,
+      description: description.value,
+      patientName: patientName.value,
+    };
+    // newModal.remove();
+    // form.remove();
+    const request = new Requests(constans.URL);
+    request
+      .put("", JSON.stringify(data), this.id, constans.token)
+      .then((resp) => resp.json())
+      .then((data) => {
+        // const card = new Cards(data, constans.fieldCardsContainer);
+        // card.cardRender();
+      });
+  }
 }
 
 export default Cards;
