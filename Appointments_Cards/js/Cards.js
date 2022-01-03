@@ -26,8 +26,6 @@ class Cards {
       "bg-primary"
     );
 
-    console.log(this.id);
-
     const purposeVisit = document.createElement("p");
     purposeVisit.textContent = `The problem is: ${this.title}`;
     purposeVisit.classList.add("card-info");
@@ -73,7 +71,6 @@ class Cards {
       closetBtn
     );
     this.url.append(this.cardWrapper);
-    console.log(this.id);
   }
 
   closeCardHandler = (e) => {

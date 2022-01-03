@@ -7,7 +7,7 @@ import Input from "./Input.js";
 
 // Why can't access VisitDentist!!!????
 
-class DentistCards {
+class CardiologistCards {
   constructor(
     {
       description,
@@ -15,9 +15,12 @@ class DentistCards {
       patientName,
       id,
       priority,
-      lastVisitDate,
       doctor,
       visitDate,
+      patientPressure,
+      patientBodyMassIndex,
+      patientCardiovascularDeseases,
+      patientAge,
     },
     url
   ) {
@@ -29,7 +32,10 @@ class DentistCards {
     this.doctor = doctor;
     this.visitDate = visitDate;
     this.url = url;
-    this.lastVisitDate = lastVisitDate;
+    this.patientPressure = patientPressure;
+    this.patientBodyMassIndex = patientBodyMassIndex;
+    this.patientCardiovascularDeseases = patientCardiovascularDeseases;
+    this.patientAge = patientAge;
   }
 
   render() {
@@ -44,8 +50,6 @@ class DentistCards {
       "p-4",
       "bg-primary"
     );
-
-    console.log(this.id);
 
     const purposeVisit = document.createElement("p");
     purposeVisit.textContent = `The problem is: ${this.title}`;
@@ -66,11 +70,24 @@ class DentistCards {
     const priority = document.createElement("p");
     priority.textContent = `Priority: ${this.priority}`;
     priority.classList.add("font-weight-bold");
+    // ===================================================================
+    const patientPressure = document.createElement("p");
+    patientPressure.textContent = `Normal pressure: ${this.patientPressure}`;
+    patientPressure.classList.add("font-weight-bold");
 
-    const lastVisit = document.createElement("p");
-    lastVisit.textContent = `Last visit date: ${this.lastVisitDate}`;
-    lastVisit.classList.add("font-weight-bold");
+    const patientBodyMassIndex = document.createElement("p");
+    patientBodyMassIndex.textContent = `Body mass index: ${this.patientBodyMassIndex}`;
+    patientBodyMassIndex.classList.add("font-weight-bold");
 
+    const patientCardiovascularDeseases = document.createElement("p");
+    patientCardiovascularDeseases.textContent = `Past diseases of the cardiovascular system: ${this.patientCardiovascularDeseases}`;
+    patientCardiovascularDeseases.classList.add("font-weight-bold");
+
+    const patientAge = document.createElement("p");
+    patientAge.textContent = `Patient's age: ${this.patientAge}`;
+    patientAge.classList.add("font-weight-bold");
+
+    // ======================================================================
     const visitTime = document.createElement("p");
     visitTime.textContent = `Visit date: ${this.visitDate}`;
     visitTime.classList.add("font-weight-bold");
@@ -100,7 +117,10 @@ class DentistCards {
       fullName,
       purposeVisit,
       shortDescription,
-      lastVisit,
+      patientPressure,
+      patientBodyMassIndex,
+      patientCardiovascularDeseases,
+      patientAge,
       visitTime,
       showmoreBtn,
       editBtn,
@@ -130,8 +150,16 @@ class DentistCards {
       const inputs = [...document.getElementsByClassName("card-input")];
       const doctorSelect = document.getElementById("createVisitSelect");
       const select = document.getElementById("prioritySelect");
-      const [patientName, purpose, description, lastVisitDate, visitDate] =
-        inputs;
+      const [
+        patientName,
+        purpose,
+        description,
+        patientPressure,
+        patientBodyMassIndex,
+        patientCardiovascularDeseases,
+        patientAge,
+        visitDate,
+      ] = inputs;
 
       const data = {
         doctor: doctorSelect.value,
@@ -139,8 +167,11 @@ class DentistCards {
         description: description.value,
         patientName: patientName.value,
         visitDate: visitDate.value,
-        lastVisitDate: lastVisitDate.value,
         priority: select.value,
+        patientPressure: patientPressure.value,
+        patientBodyMassIndex: patientBodyMassIndex.value,
+        patientCardiovascularDeseases: patientCardiovascularDeseases.value,
+        patientAge: patientAge.value,
       };
 
       console.log(data);
@@ -150,7 +181,10 @@ class DentistCards {
         .put("", JSON.stringify(data), this.id, constans.token)
         .then((resp) => resp.json())
         .then((data) => {
-          const card = new DentistCards(data, constans.fieldCardsContainer);
+          const card = new CardiologistCards(
+            data,
+            constans.fieldCardsContainer
+          );
           card.render();
           this.cardWrapper.remove();
           document.getElementById("edit-modal").remove();
@@ -161,36 +195,98 @@ class DentistCards {
     editForm.render();
 
     const dataInput = document.getElementById("visitDate").closest("label");
-    const lastVisitLabel = document.createElement("label");
-    lastVisitLabel.textContent = "Last visit date:";
-    // test.setAttribute("for", "test");
 
-    const lastVisit = new Input({
-      type: "date",
-      name: "lastVisitDate",
+    const pressureLabel = document.createElement("label");
+    pressureLabel.textContent = "Normal pressure:";
+
+    const patientPress = new Input({
+      type: "text",
+      name: "patientPressure",
       isRequired: true,
-      id: "lastVisitDate",
-      classes: ["lastVisitDate", "card-input"],
+      id: "patientPressure",
+      classes: ["patientPressure", "card-input"],
       placeholder: "start typing...",
       errorText: "all fields must be filled!",
     }).render();
-    lastVisitLabel.append(lastVisit);
-    dataInput.before(lastVisitLabel);
+    pressureLabel.append(patientPress);
+
+    const bodyMassLabel = document.createElement("label");
+    bodyMassLabel.textContent = "Body mass index:";
+
+    const patientBodyMassI = new Input({
+      type: "text",
+      name: "patientBodyMassIndex",
+      isRequired: true,
+      id: "patientBodyMassIndex",
+      classes: ["patientBodyMassIndex", "card-input"],
+      placeholder: "start typing...",
+      errorText: "all fields must be filled!",
+    }).render();
+
+    bodyMassLabel.append(patientBodyMassI);
+
+    const pastDeseasesLabel = document.createElement("label");
+    pastDeseasesLabel.textContent =
+      "Past diseases of the cardiovascular system:";
+
+    const patientCardiovascularDeseas = new Input({
+      type: "text",
+      name: "patientCardiovascularDeseases",
+      isRequired: true,
+      id: "patientCardiovascularDeseases",
+      classes: ["patientCardiovascularDeseases", "card-input"],
+      placeholder: "start typing...",
+      errorText: "all fields must be filled!",
+    }).render();
+    pastDeseasesLabel.append(patientCardiovascularDeseas);
+
+    const patientAgeLabel = document.createElement("label");
+    patientAgeLabel.textContent = "Patient's age:";
+
+    const age = new Input({
+      type: "number",
+      name: "patientAge",
+      isRequired: true,
+      id: "patientAge",
+      classes: ["patientAge", "card-input"],
+      placeholder: "start typing...",
+      errorText: "all fields must be filled!",
+    }).render();
+
+    patientAgeLabel.append(age);
+
+    dataInput.before(
+      pressureLabel,
+      bodyMassLabel,
+      pastDeseasesLabel,
+      patientAgeLabel
+    );
 
     const inputs = [...document.getElementsByClassName("card-input")];
     const doctorSelect = document.getElementById("createVisitSelect");
     const select = document.getElementById("prioritySelect");
-    const [patientName, purpose, description, lastVisitDate, visitDate] =
-      inputs;
+    const [
+      patientName,
+      purpose,
+      description,
+      patientPressure,
+      patientBodyMassIndex,
+      patientCardiovascularDeseases,
+      patientAge,
+      visitDate,
+    ] = inputs;
 
     purpose.value = this.title;
     description.value = this.description;
     patientName.value = this.patientName;
     visitDate.value = this.visitDate;
-    lastVisitDate.value = this.lastVisitDate;
     select.value = this.priority;
     doctorSelect.value = this.doctor;
+    patientPressure.value = this.patientPressure;
+    patientBodyMassIndex.value = this.patientBodyMassIndex;
+    patientCardiovascularDeseases.value = this.patientCardiovascularDeseases;
+    patientAge.value = this.patientAge;
   };
 }
 
-export default DentistCards;
+export default CardiologistCards;
