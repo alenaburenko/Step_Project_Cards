@@ -138,9 +138,15 @@ class Visit {
         if (data.doctor === "Dentist") {
           const card = new DentistCards(data, constans.fieldCardsContainer);
           card.render();
-        } else {
-          const card2 = new Cards(data, constans.fieldCardsContainer);
+        } else if (data.doctor === "Cardiologist") {
+          const card2 = new CardiologistCards(
+            data,
+            constans.fieldCardsContainer
+          );
           card2.render();
+        } else {
+          const card3 = new TherapistCards(data, constans.fieldCardsContainer);
+          card3.render();
         }
       });
   }

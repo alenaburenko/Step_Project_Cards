@@ -4,6 +4,9 @@ import Requests from "./Request.js";
 import constans from "./constans.js";
 // import VisitDentist from "./VisitDentist.js";
 import Cards from "./Cards.js";
+import DentistCards from "./DentistCards.js";
+import TherapistCards from "./TherapistCards.js";
+import CardiologistCards from "./CardiologistCards.js";
 
 class Login extends Modal {
   constructor(id, classes, text) {
@@ -74,13 +77,28 @@ class Login extends Modal {
                   const textNoItems =
                     document.getElementsByClassName("visit__field-text")[0];
                   textNoItems.style.display = "none";
-                  fieldForCards.style.className = "field-cards-modified";
+                  fieldForCards.className = "field-cards-modified";
                   data.forEach((element) => {
-                    const card = new Cards(
-                      element,
-                      constans.fieldCardsContainer
-                    );
-                    card.render();
+                    console.log(element.doctor);
+                    if (element.doctor === "Dentist") {
+                      const card1 = new DentistCards(
+                        element,
+                        constans.fieldCardsContainer
+                      );
+                      card1.render();
+                    } else if (element.doctor === "Cardiologist") {
+                      const card2 = new CardiologistCards(
+                        element,
+                        constans.fieldCardsContainer
+                      );
+                      card2.render();
+                    } else if (element.doctor === "Therapist") {
+                      const card3 = new TherapistCards(
+                        element,
+                        constans.fieldCardsContainer
+                      );
+                      card3.render();
+                    }
                   });
                 } else {
                   console.log("error");

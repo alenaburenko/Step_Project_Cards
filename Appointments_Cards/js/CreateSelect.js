@@ -5,6 +5,8 @@ import constans from "./constans.js";
 import Select from "./Select.js";
 import Login from "./Login.js";
 import VisitCardiologist from "./VisitCardiologist.js";
+import VisitTherapist from "./VisitTherapist.js";
+
 class CreateSelect extends Modal {
   constructor(id, classes, text) {
     super(id, classes, text);
@@ -39,7 +41,7 @@ class CreateSelect extends Modal {
       const visitdentist = new VisitCardiologist(constans.modalContent[0], "");
       visitdentist.render();
     } else if (select.value === "Therapist") {
-      const visitdentist = new VisitDentist(constans.modalContent[0], "");
+      const visitdentist = new VisitTherapist(constans.modalContent[0], "");
       visitdentist.render();
     } else if (select.value === "Dentist") {
       const visitdentist = new VisitDentist(constans.modalContent[0], "");
