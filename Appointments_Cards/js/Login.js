@@ -64,26 +64,29 @@ class Login extends Modal {
             this.modal.remove();
             constans.createVisitButton.classList.remove("btn-none");
             document.getElementById("filter").style.display = "flex";
-             request
-        .get("", constans.token)
-        .then((resp) => resp.json())
-        .then((data) => {
-          if (data.length !== 0) {
-            const fieldForCards =
-              document.getElementsByClassName("field-cards")[0];
-            const textNoItems =
-              document.getElementsByClassName("visit__field-text")[0];
-            textNoItems.style.display = "none";
-            fieldForCards.style.className = "field-cards-modified";
-            data.forEach((element) => {
-              const card = new Cards(element, constans.fieldCardsContainer);
-              card.render();
-            });
-            
-          } else {
-            console.log("error");
-          }
-        });
+            request
+              .get("", constans.token)
+              .then((resp) => resp.json())
+              .then((data) => {
+                if (data.length !== 0) {
+                  const fieldForCards =
+                    document.getElementsByClassName("field-cards")[0];
+                  const textNoItems =
+                    document.getElementsByClassName("visit__field-text")[0];
+                  textNoItems.style.display = "none";
+                  fieldForCards.style.className = "field-cards-modified";
+                  console.log(data, "data");
+                  data.forEach((element) => {
+                    const card = new Cards(
+                      element,
+                      constans.fieldCardsContainer
+                    );
+                    card.render();
+                  });
+                } else {
+                  console.log("error");
+                }
+              });
           } else {
             alert("Ошибка! Неверный email или пароль.");
           }
