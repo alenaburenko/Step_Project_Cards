@@ -3,7 +3,9 @@ import Requests from "./Request.js";
 import Visit from "./Visit.js";
 import Modal from "./Modal.js";
 import Cards from "./Cards.js";
-import VisitDentist from "./VisitDentist.js";
+import Input from "./Input.js";
+
+// Why can't access VisitDentist!!!????
 
 class DentistCards {
   constructor(
@@ -120,7 +122,7 @@ class DentistCards {
     constans.ROOT.append(newModal);
     const modal = document.getElementById("modalTitle");
 
-    const editForm = new VisitDentist(modal, "");
+    const editForm = new Visit(modal, "");
 
     editForm.submitHandler = (e) => {
       e.preventDefault();
@@ -128,15 +130,8 @@ class DentistCards {
       const inputs = [...document.getElementsByClassName("card-input")];
       const doctorSelect = document.getElementById("createVisitSelect");
       const select = document.getElementById("prioritySelect");
-      const [
-        priority,
-        doctor,
-        patientName,
-        purpose,
-        description,
-        lastVisitDate,
-        visitDate,
-      ] = inputs;
+      const [patientName, purpose, description, lastVisitDate, visitDate] =
+        inputs;
 
       const data = {
         doctor: doctorSelect.value,
@@ -147,6 +142,8 @@ class DentistCards {
         lastVisitDate: lastVisitDate.value,
         priority: select.value,
       };
+
+      console.log(data);
 
       const request = new Requests(constans.URL);
       request
@@ -163,15 +160,35 @@ class DentistCards {
 
     editForm.render();
 
-    // const inputs = [...document.getElementsByClassName("card-input")];
-    // const [purpose, description, patientName] = inputs;
+    const dataInput = document.getElementById("visitDate").closest("label");
+    const lastVisitLabel = document.createElement("label");
+    lastVisitLabel.textContent = "Last visit date:";
+    // test.setAttribute("for", "test");
+
+    const lastVisit = new Input({
+      type: "date",
+      name: "lastVisitDate",
+      isRequired: true,
+      id: "lastVisitDate",
+      classes: ["lastVisitDate", "card-input"],
+      placeholder: "start typing...",
+      errorText: "all fields must be filled!",
+    }).render();
+    lastVisitLabel.append(lastVisit);
+    dataInput.before(lastVisitLabel);
+
+    const inputs = [...document.getElementsByClassName("card-input")];
+    const doctorSelect = document.getElementById("createVisitSelect");
+    const select = document.getElementById("prioritySelect");
+    const [patientName, purpose, description, lastVisitDate, visitDate] =
+      inputs;
 
     purpose.value = this.title;
     description.value = this.description;
     patientName.value = this.patientName;
     visitDate.value = this.visitDate;
     lastVisitDate.value = this.lastVisitDate;
-    priority.value = this.priority;
+    select.value = this.priority;
     doctorSelect.value = this.doctor;
   };
 }
