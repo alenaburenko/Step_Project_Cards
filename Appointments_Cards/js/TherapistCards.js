@@ -7,7 +7,7 @@ import Input from "./Input.js";
 
 // Why can't access VisitTherapist!!!????
 
-class TherapistCards extends Cards {
+class TherapistCards {
   constructor(
     { description, title, patientName, id, priority, age, doctor, visitDate },
     url
@@ -122,7 +122,7 @@ class TherapistCards extends Cards {
       const [patientName, purpose, description, age, visitDate] = inputs;
 
       const data = {
-        doctor: doctorSelect.value,
+        // doctor: doctorSelect.value,
         title: purpose.value,
         description: description.value,
         patientName: patientName.value,

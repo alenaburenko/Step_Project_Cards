@@ -5,6 +5,7 @@ import constans from "./constans.js";
 import Cards from "./Cards.js";
 import DentistCards from "./DentistCards.js";
 import CardiologistCards from "./CardiologistCards.js";
+import TherapistCards from "./TherapistCards.js";
 import Select from "./Select.js";
 
 class Visit {

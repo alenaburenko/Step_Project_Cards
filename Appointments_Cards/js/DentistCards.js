@@ -7,7 +7,7 @@ import Input from "./Input.js";
 
 // Why can't access VisitDentist!!!????
 
-class DentistCards extends Cards {
+class DentistCards {
   constructor(
     {
       description,
@@ -134,7 +134,7 @@ class DentistCards extends Cards {
         inputs;
 
       const data = {
-        doctor: doctorSelect.value,
+        // doctor: doctorSelect.value,
         title: purpose.value,
         description: description.value,
         patientName: patientName.value,

@@ -7,7 +7,7 @@ import Input from "./Input.js";
 
 // Why can't access VisitCardiol!!!????
 
-class CardiologistCards extends Cards {
+class CardiologistCards {
   constructor(
     {
       description,
@@ -162,7 +162,7 @@ class CardiologistCards extends Cards {
       ] = inputs;
 
       const data = {
-        doctor: doctorSelect.value,
+        // doctor: doctorSelect.value,
         title: purpose.value,
         description: description.value,
         patientName: patientName.value,
