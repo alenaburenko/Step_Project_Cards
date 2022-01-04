@@ -182,3 +182,11 @@
 .card-btn {
   cursor: pointer;
 }
+
+.card-info {
+  display: none;
+}
+
+.card-info.active {
+  display: block;
+}

@@ -52,11 +52,7 @@ class VisitTherapist extends Visit {
       priority: select.value,
     };
 
-<<<<<<< HEAD
-    const form = document.getElementById("visit-form");
-=======
     const form = document.getElementById("modal3");
->>>>>>> c430d4678b8c3a4eb5b81928daf361def7c7ba79
     if (form) form.remove();
 
     const request = new Requests(constans.URL);
@@ -82,8 +78,4 @@ class VisitTherapist extends Visit {
   }
 }
 
-<<<<<<< HEAD
 export default VisitTherapist;
-=======
-export default VisitTherapist;
->>>>>>> c430d4678b8c3a4eb5b81928daf361def7c7ba79

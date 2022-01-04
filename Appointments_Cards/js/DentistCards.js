@@ -48,7 +48,7 @@ class DentistCards extends Cards {
 
     const doctorName = document.createElement("p");
     doctorName.textContent = `The doctor is: ${this.doctor}`;
-    doctorName.classList.add("card-info");
+    doctorName.classList.add("card-info", "active");
 
     const shortDescription = document.createElement("p");
     shortDescription.textContent = `Description: ${this.description}`;
@@ -56,19 +56,19 @@ class DentistCards extends Cards {
 
     const fullName = document.createElement("p");
     fullName.textContent = `Patient: ${this.patientName}`;
-    fullName.classList.add("card-info");
+    fullName.classList.add("card-info", "active");
 
     const priority = document.createElement("p");
     priority.textContent = `Priority: ${this.priority}`;
-    priority.classList.add("font-weight-bold");
+    priority.classList.add("card-info", "font-weight-bold");
 
     const lastVisit = document.createElement("p");
     lastVisit.textContent = `Last visit date: ${this.lastVisitDate}`;
-    lastVisit.classList.add("font-weight-bold");
+    lastVisit.classList.add("card-info", "font-weight-bold");
 
     const visitTime = document.createElement("p");
     visitTime.textContent = `Visit date: ${this.visitDate}`;
-    visitTime.classList.add("font-weight-bold");
+    visitTime.classList.add("card-info", "font-weight-bold");
 
     const editBtn = document.createElement("a");
     editBtn.textContent = "Edit";
@@ -77,6 +77,7 @@ class DentistCards extends Cards {
 
     const showmoreBtn = document.createElement("a");
     showmoreBtn.textContent = "Show more";
+    showmoreBtn.addEventListener("click", this.showMore);
     showmoreBtn.classList.add(
       "text-info",
       "showmore-btn",
@@ -90,9 +91,9 @@ class DentistCards extends Cards {
     closetBtn.classList.add("text-danger", "close-btn", "d-inline", "card-btn");
 
     this.cardWrapper.append(
-      priority,
       doctorName,
       fullName,
+      priority,
       purposeVisit,
       shortDescription,
       lastVisit,
@@ -184,6 +185,24 @@ class DentistCards extends Cards {
     visitDate.value = this.visitDate;
     lastVisitDate.value = this.lastVisitDate;
     select.value = this.priority;
+  };
+
+  showMore = (e) => {
+    e.preventDefault();
+
+    const items = [...this.cardWrapper.getElementsByTagName("p")];
+    items.forEach((el, index) => {
+      if (index > 1) {
+        console.log(e);
+        if (!el.classList.contains("active")) {
+          e.target.textContent = "Show less";
+          el.classList.add("active");
+        } else {
+          el.classList.remove("active");
+          e.target.textContent = "Show more";
+        }
+      }
+    });
   };
 }
 
