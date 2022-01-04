@@ -7,6 +7,7 @@ import Input from "./Input.js";
 
 // Why can't access VisitDentist!!!????
 
+<<<<<<< HEAD
 class DentistCards {
   constructor(
     {
@@ -29,6 +30,14 @@ class DentistCards {
     this.doctor = doctor;
     this.visitDate = visitDate;
     this.url = url;
+=======
+class DentistCards extends Cards {
+  constructor({description, title, patientName, id, priority, lastVisitDate,doctor,visitDate},url)
+   {
+   super({ description, title, patientName, id, priority },url)
+    this.doctor = doctor;
+    this.visitDate = visitDate;
+>>>>>>> c430d4678b8c3a4eb5b81928daf361def7c7ba79
     this.lastVisitDate = lastVisitDate;
   }
 

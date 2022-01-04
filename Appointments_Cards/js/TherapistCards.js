@@ -7,16 +7,12 @@ import Input from "./Input.js";
 
 // Why can't access VisitTherapist!!!????
 
-class TherapistCards {
+class TherapistCards extends Cards {
   constructor(
     { description, title, patientName, id, priority, age, doctor, visitDate },
     url
   ) {
-    this.description = description;
-    this.title = title;
-    this.patientName = patientName;
-    this.id = id;
-    this.priority = priority;
+    super({ description, title, patientName, id, priority }, url);
     this.doctor = doctor;
     this.visitDate = visitDate;
     this.url = url;

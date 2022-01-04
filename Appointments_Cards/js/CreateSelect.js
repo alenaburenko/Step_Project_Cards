@@ -47,7 +47,6 @@ class CreateSelect extends Modal {
       const visitdentist = new VisitDentist(constans.modalContent[0], "");
       visitdentist.render();
     }
-    //  this.closeModal()
   }
 }
 export default CreateSelect;

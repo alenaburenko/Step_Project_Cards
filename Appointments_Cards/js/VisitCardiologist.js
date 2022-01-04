@@ -114,7 +114,7 @@ class VisitCardiologist extends Visit {
       patientAge: patientAge.value,
     };
 
-    const form = document.getElementById("visit-form");
+    const form = document.getElementById("modal3");
     if (form) form.remove();
 
     console.log(data);
