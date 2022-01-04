@@ -3,18 +3,23 @@ import Modal from "./Modal.js";
 import VisitDentist from "./VisitDentist.js";
 import constans from "./constans.js";
 import Select from "./Select.js";
+import Login from "./Login.js";
+import VisitCardiologist from "./VisitCardiologist.js";
+import VisitTherapist from "./VisitTherapist.js";
+
 class CreateSelect extends Modal {
   constructor(id, classes, text) {
     super(id, classes, text);
     this.modalInside = this.createSelect();
   }
+
   createSelect() {
     const wrapper = document.createElement("div");
     const createVisitSelect = new Select();
     const select = createVisitSelect.create();
-    createVisitSelect.addOption("Терапевт", "therapist");
-    createVisitSelect.addOption("Стоматолог", "dentist");
-    createVisitSelect.addOption("Кардиолог", "cardiologist");
+    createVisitSelect.addOption("Therapist", "Therapist");
+    createVisitSelect.addOption("Dentist", "Dentist");
+    createVisitSelect.addOption("Cardiologist", "Cardiologist");
     createVisitSelect.baseAttr("createVisitSelect");
     wrapper.classList.add("form__modal-check-doctor");
     const label = document.createElement("lebel");
@@ -23,18 +28,26 @@ class CreateSelect extends Modal {
 
     select.addEventListener("change", (e) => {
       e.preventDefault();
-      if (createVisitSelect.value === "Cardiologist") {
-        VisitCardiologist.render();
-      } else if (createVisitSelect.value === "Therapist") {
-        VisitTherapist.render();
-      } else if (createVisitSelect.value === "Dentist") {
-        console.log(constans.modalContent);
-        const visitdentist = new VisitDentist(constans.modalContent[0], "");
-        visitdentist.render();
-      }
+      this.chengeDoctor(select);
     });
     wrapper.append(label, select);
+
     return wrapper;
+  }
+  chengeDoctor(select) {
+    console.log(select.value);
+
+    if (select.value === "Cardiologist") {
+      const visitdentist = new VisitCardiologist(constans.modalContent[0], "");
+      visitdentist.render();
+    } else if (select.value === "Therapist") {
+      const visitdentist = new VisitTherapist(constans.modalContent[0], "");
+      visitdentist.render();
+    } else if (select.value === "Dentist") {
+      const visitdentist = new VisitDentist(constans.modalContent[0], "");
+      visitdentist.render();
+    }
+    //  this.closeModal()
   }
 }
 export default CreateSelect;
