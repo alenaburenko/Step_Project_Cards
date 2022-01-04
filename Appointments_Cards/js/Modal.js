@@ -10,7 +10,7 @@ class Modal {
     _defaultContent() {
         const modalText = document.createElement("p");
         modalText.textContent = this.text;
-
+        modalText.id = "modalTitle";
         return modalText;
     }
     render() {
@@ -38,7 +38,7 @@ class Modal {
     };
 
     closeModal = () => {
-        this.modal.classList.remove("active");
+        this.modal.remove();
     };
 }
 
