@@ -17,20 +17,24 @@ class CreateSelect extends Modal {
     const wrapper = document.createElement("div");
     const createVisitSelect = new Select();
     const select = createVisitSelect.create();
+    createVisitSelect.addOption("Choose your doctor", "Choose your doctor");
     createVisitSelect.addOption("Therapist", "Therapist");
     createVisitSelect.addOption("Dentist", "Dentist");
     createVisitSelect.addOption("Cardiologist", "Cardiologist");
     createVisitSelect.baseAttr("createVisitSelect");
     wrapper.classList.add("form__modal-check-doctor");
-    const label = document.createElement("lebel");
-    label.textContent = "Choose your doctor:";
+    // const label = document.createElement("lebel");
+    // label.textContent = "Choose your doctor:";
     wrapper.classList.add("wrapper__modal-check-doctor");
 
     select.addEventListener("change", (e) => {
       e.preventDefault();
+      if (document.getElementById("visit-form")) {
+        document.getElementById("visit-form").remove();
+      }
       this.chengeDoctor(select);
     });
-    wrapper.append(label, select);
+    wrapper.append(select);
 
     return wrapper;
   }
@@ -47,7 +51,6 @@ class CreateSelect extends Modal {
       const visitdentist = new VisitDentist(constans.modalContent[0], "");
       visitdentist.render();
     }
-    //  this.closeModal()
   }
 }
 export default CreateSelect;

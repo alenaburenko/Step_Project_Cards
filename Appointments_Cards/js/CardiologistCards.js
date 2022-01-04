@@ -7,7 +7,7 @@ import Input from "./Input.js";
 
 // Why can't access VisitCardiol!!!????
 
-class CardiologistCards {
+class CardiologistCards extends Cards {
   constructor(
     {
       description,
@@ -24,11 +24,7 @@ class CardiologistCards {
     },
     url
   ) {
-    this.description = description;
-    this.title = title;
-    this.patientName = patientName;
-    this.id = id;
-    this.priority = priority;
+    super({ description, title, patientName, id, priority }, url);
     this.doctor = doctor;
     this.visitDate = visitDate;
     this.url = url;
@@ -57,7 +53,7 @@ class CardiologistCards {
 
     const doctorName = document.createElement("p");
     doctorName.textContent = `The doctor is: ${this.doctor}`;
-    doctorName.classList.add("card-info");
+    doctorName.classList.add("card-info", "active");
 
     const shortDescription = document.createElement("p");
     shortDescription.textContent = `Description: ${this.description}`;
@@ -65,32 +61,35 @@ class CardiologistCards {
 
     const fullName = document.createElement("p");
     fullName.textContent = `Patient: ${this.patientName}`;
-    fullName.classList.add("card-info");
+    fullName.classList.add("card-info", "active");
 
     const priority = document.createElement("p");
     priority.textContent = `Priority: ${this.priority}`;
-    priority.classList.add("font-weight-bold");
+    priority.classList.add("card-info", "font-weight-bold");
     // ===================================================================
     const patientPressure = document.createElement("p");
     patientPressure.textContent = `Normal pressure: ${this.patientPressure}`;
-    patientPressure.classList.add("font-weight-bold");
+    patientPressure.classList.add("card-info", "font-weight-bold");
 
     const patientBodyMassIndex = document.createElement("p");
     patientBodyMassIndex.textContent = `Body mass index: ${this.patientBodyMassIndex}`;
-    patientBodyMassIndex.classList.add("font-weight-bold");
+    patientBodyMassIndex.classList.add("card-info", "font-weight-bold");
 
     const patientCardiovascularDeseases = document.createElement("p");
     patientCardiovascularDeseases.textContent = `Past diseases of the cardiovascular system: ${this.patientCardiovascularDeseases}`;
-    patientCardiovascularDeseases.classList.add("font-weight-bold");
+    patientCardiovascularDeseases.classList.add(
+      "card-info",
+      "font-weight-bold"
+    );
 
     const patientAge = document.createElement("p");
     patientAge.textContent = `Patient's age: ${this.patientAge}`;
-    patientAge.classList.add("font-weight-bold");
+    patientAge.classList.add("card-info", "font-weight-bold");
 
     // ======================================================================
     const visitTime = document.createElement("p");
     visitTime.textContent = `Visit date: ${this.visitDate}`;
-    visitTime.classList.add("font-weight-bold");
+    visitTime.classList.add("card-info", "font-weight-bold");
 
     const editBtn = document.createElement("a");
     editBtn.textContent = "Edit";
@@ -99,6 +98,7 @@ class CardiologistCards {
 
     const showmoreBtn = document.createElement("a");
     showmoreBtn.textContent = "Show more";
+    showmoreBtn.addEventListener("click", this.showMore);
     showmoreBtn.classList.add(
       "text-info",
       "showmore-btn",
@@ -112,9 +112,9 @@ class CardiologistCards {
     closetBtn.classList.add("text-danger", "close-btn", "d-inline", "card-btn");
 
     this.cardWrapper.append(
-      priority,
       doctorName,
       fullName,
+      priority,
       purposeVisit,
       shortDescription,
       patientPressure,
@@ -285,6 +285,24 @@ class CardiologistCards {
     patientBodyMassIndex.value = this.patientBodyMassIndex;
     patientCardiovascularDeseases.value = this.patientCardiovascularDeseases;
     patientAge.value = this.patientAge;
+  };
+
+  showMore = (e) => {
+    e.preventDefault();
+
+    const items = [...this.cardWrapper.getElementsByTagName("p")];
+    items.forEach((el, index) => {
+      if (index > 1) {
+        console.log(e);
+        if (!el.classList.contains("active")) {
+          e.target.textContent = "Show less";
+          el.classList.add("active");
+        } else {
+          el.classList.remove("active");
+          e.target.textContent = "Show more";
+        }
+      }
+    });
   };
 }
 

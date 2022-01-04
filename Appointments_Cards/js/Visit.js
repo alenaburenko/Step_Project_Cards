@@ -2,7 +2,7 @@
 import Input from "./Input.js";
 import Requests from "./Request.js";
 import constans from "./constans.js";
-import Cards from "./Cards.js";
+// import Cards from "./Cards.js";
 import DentistCards from "./DentistCards.js";
 import CardiologistCards from "./CardiologistCards.js";
 import TherapistCards from "./TherapistCards.js";

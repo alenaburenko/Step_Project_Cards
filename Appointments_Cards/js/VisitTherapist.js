@@ -52,7 +52,7 @@ class VisitTherapist extends Visit {
       priority: select.value,
     };
 
-    const form = document.getElementById("visit-form");
+    const form = document.getElementById("modal3");
     if (form) form.remove();
 
     const request = new Requests(constans.URL);
