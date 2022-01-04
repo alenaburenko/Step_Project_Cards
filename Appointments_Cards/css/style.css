@@ -163,6 +163,7 @@
   overflow: hidden;
   position: relative;
   margin: 12px;
+  align-self: baseline;
 }
 .showmore-btn {
   position: absolute;
