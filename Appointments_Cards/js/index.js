@@ -24,8 +24,6 @@ constans.createVisitButton.addEventListener("click", (e) => {
   selectDoctors.openModal();
 });
 
-
-
 document.addEventListener("DOMContentLoaded", onLoad);
 function onLoad() {
   if (!constans.token) {

@@ -49,6 +49,7 @@ class Cards {
 
     const showmoreBtn = document.createElement("a");
     showmoreBtn.textContent = "Show more";
+    showmoreBtn.addEventListener("click", this.showMore);
     showmoreBtn.classList.add(
       "text-info",
       "showmore-btn",
@@ -137,6 +138,13 @@ class Cards {
     purpose.value = this.title;
     description.value = this.description;
     patientName.value = this.patientName;
+  };
+
+  showMore = (e) => {
+    e.preventDefault();
+
+    const items = [...this.cardWrapper.getElementsByTagName("p")];
+    console.log(items);
   };
 }
 
