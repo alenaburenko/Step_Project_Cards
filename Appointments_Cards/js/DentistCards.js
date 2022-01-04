@@ -37,7 +37,8 @@ class DentistCards extends Cards {
       "d-flex",
       "flex-column",
       "p-4",
-      "bg-primary"
+      "bg-success",
+      "bg-gradient"
     );
 
     console.log(this.id);
@@ -110,7 +111,7 @@ class DentistCards extends Cards {
     const modalEditWindow = new Modal(
       "edit-modal",
       ["modal", "modal-content"],
-      "test"
+      "You're editing patient's card..."
     );
 
     const newModal = modalEditWindow.render();
@@ -126,11 +127,11 @@ class DentistCards extends Cards {
       const inputs = [...document.getElementsByClassName("card-input")];
       const doctorSelect = document.getElementById("createVisitSelect");
       const select = document.getElementById("prioritySelect");
-      const [patientName, purpose, description, lastVisitDate, visitDate] =
+      const [purpose, description, patientName, lastVisitDate, visitDate] =
         inputs;
 
       const data = {
-        // doctor: doctorSelect.value,
+        doctor: this.doctor,
         title: purpose.value,
         description: description.value,
         patientName: patientName.value,
@@ -139,8 +140,6 @@ class DentistCards extends Cards {
         priority: select.value,
       };
 
-      console.log(data);
-
       const request = new Requests(constans.URL);
       request
         .put("", JSON.stringify(data), this.id, constans.token)
@@ -148,6 +147,7 @@ class DentistCards extends Cards {
         .then((data) => {
           const card = new DentistCards(data, constans.fieldCardsContainer);
           card.render();
+          console.log(data);
           this.cardWrapper.remove();
           document.getElementById("edit-modal").remove();
           console.log("PUT is succesful");
@@ -176,7 +176,7 @@ class DentistCards extends Cards {
     const inputs = [...document.getElementsByClassName("card-input")];
     const doctorSelect = document.getElementById("createVisitSelect");
     const select = document.getElementById("prioritySelect");
-    const [patientName, purpose, description, lastVisitDate, visitDate] =
+    const [purpose, description, patientName, lastVisitDate, visitDate] =
       inputs;
 
     purpose.value = this.title;

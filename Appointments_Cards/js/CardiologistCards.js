@@ -44,7 +44,8 @@ class CardiologistCards extends Cards {
       "d-flex",
       "flex-column",
       "p-4",
-      "bg-primary"
+      "bg-danger",
+      "bg-gradient"
     );
 
     const purposeVisit = document.createElement("p");
@@ -134,7 +135,7 @@ class CardiologistCards extends Cards {
     const modalEditWindow = new Modal(
       "edit-modal",
       ["modal", "modal-content"],
-      "test"
+      "You're editing patient's card..."
     );
 
     const newModal = modalEditWindow.render();
@@ -162,7 +163,7 @@ class CardiologistCards extends Cards {
       ] = inputs;
 
       const data = {
-        // doctor: doctorSelect.value,
+        doctor: this.doctor,
         title: purpose.value,
         description: description.value,
         patientName: patientName.value,
