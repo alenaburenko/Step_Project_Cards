@@ -128,7 +128,6 @@ class CardiologistCards extends Cards {
       closetBtn
     );
     this.url.append(this.cardWrapper);
-    console.log(this.id);
   }
 
   editHandler = (e) => {
@@ -175,8 +174,6 @@ class CardiologistCards extends Cards {
         patientAge: patientAge.value,
       };
 
-      console.log(data);
-
       const request = new Requests(constans.URL);
       request
         .put("", JSON.stringify(data), this.id, constans.token)
@@ -189,6 +186,7 @@ class CardiologistCards extends Cards {
           card.render();
           this.cardWrapper.remove();
           document.getElementById("edit-modal").remove();
+          console.log(data);
           console.log("PUT is succesful");
         });
     };

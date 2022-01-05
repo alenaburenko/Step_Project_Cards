@@ -47,7 +47,6 @@ function onLoad() {
           textNoItems.style.display = "none";
           fieldForCards.className = "field-cards-modified";
           data.forEach((element) => {
-            console.log(element.doctor);
             if (element.doctor === "Dentist") {
               const card1 = new DentistCards(
                 element,

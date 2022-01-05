@@ -58,7 +58,7 @@ class VisitDentist extends Visit {
     const inputs = [...document.getElementsByClassName("card-input")];
     const doctor = document.getElementById("createVisitSelect");
     const select = document.getElementById("prioritySelect");
-    const [purpose, description, patientName, lastVisitDate, visitDate] =
+    const [patientName, purpose, description, lastVisitDate, visitDate] =
       inputs;
 
     const data = {
@@ -79,6 +79,7 @@ class VisitDentist extends Visit {
       .post(JSON.stringify(data), "", tokenID)
       .then((resp) => resp.json())
       .then((data) => {
+        console.log(data);
         if (data.doctor === "Dentist") {
           const card = new DentistCards(data, constans.fieldCardsContainer);
           card.render();
