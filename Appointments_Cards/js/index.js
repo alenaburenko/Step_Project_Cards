@@ -8,6 +8,7 @@ import VisitDentist from "./VisitDentist.js";
 import CardiologistCards from "./CardiologistCards.js";
 import TherapistCards from "./TherapistCards.js";
 import DentistCards from "./DentistCards.js";
+import "./Filter.js";
 
 const login = new Login("modal3", ["modal", "modal1"]);
 const selectDoctors = new CreateSelect("modal3", ["modal", "modal1"]);
