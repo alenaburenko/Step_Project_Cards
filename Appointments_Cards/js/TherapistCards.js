@@ -94,7 +94,6 @@ class TherapistCards extends Cards {
       closetBtn
     );
     this.url.append(this.cardWrapper);
-    console.log(this.id);
   }
 
   editHandler = (e) => {
@@ -129,8 +128,6 @@ class TherapistCards extends Cards {
         priority: select.value,
       };
 
-      console.log(data);
-
       const request = new Requests(constans.URL);
       request
         .put("", JSON.stringify(data), this.id, constans.token)
@@ -140,6 +137,7 @@ class TherapistCards extends Cards {
           card.render();
           this.cardWrapper.remove();
           document.getElementById("edit-modal").remove();
+          console.log(data);
           console.log("PUT is succesful");
         });
     };
@@ -185,7 +183,6 @@ class TherapistCards extends Cards {
     const items = [...this.cardWrapper.getElementsByTagName("p")];
     items.forEach((el, index) => {
       if (index > 1) {
-        console.log(e);
         if (!el.classList.contains("active")) {
           e.target.textContent = "Show less";
           el.classList.add("active");
