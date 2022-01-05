@@ -92,8 +92,8 @@ class VisitCardiologist extends Visit {
     const select = document.getElementById("prioritySelect");
     const [
       purpose,
-      description,
       patientName,
+      description,
       patientPressure,
       patientBodyMassIndex,
       patientCardiovascularDeseases,

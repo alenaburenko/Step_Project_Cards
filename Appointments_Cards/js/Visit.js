@@ -101,9 +101,9 @@ class Visit {
 
     form.append(
       priorityLabel,
+      patientNameLabel,
       purposeLabel,
       descriptionLabel,
-      patientNameLabel,
       dateOfVisitLabel,
       btn
     );
@@ -116,7 +116,7 @@ class Visit {
     const inputs = [...document.getElementsByClassName("card-input")];
     const doctor = document.getElementById("createVisitSelect");
     const select = document.getElementById("prioritySelect");
-    const [purpose, description, patientName, visitDate] = inputs;
+    const [patientName, purpose, description, visitDate] = inputs;
 
     const data = {
       doctor: doctor.value,
