@@ -41,8 +41,6 @@ class DentistCards extends Cards {
       "bg-gradient"
     );
 
-    console.log(this.id);
-
     const purposeVisit = document.createElement("p");
     purposeVisit.textContent = `The problem is: ${this.title}`;
     purposeVisit.classList.add("card-info");
@@ -104,7 +102,6 @@ class DentistCards extends Cards {
       closetBtn
     );
     this.url.append(this.cardWrapper);
-    console.log(this.id);
   }
 
   editHandler = (e) => {
@@ -127,7 +124,7 @@ class DentistCards extends Cards {
       const inputs = [...document.getElementsByClassName("card-input")];
       const doctorSelect = document.getElementById("createVisitSelect");
       const select = document.getElementById("prioritySelect");
-      const [purpose, description, patientName, lastVisitDate, visitDate] =
+      const [patientName, purpose, description, lastVisitDate, visitDate] =
         inputs;
 
       const data = {
@@ -147,9 +144,9 @@ class DentistCards extends Cards {
         .then((data) => {
           const card = new DentistCards(data, constans.fieldCardsContainer);
           card.render();
-          console.log(data);
           this.cardWrapper.remove();
           document.getElementById("edit-modal").remove();
+          console.log(data);
           console.log("PUT is succesful");
         });
     };
@@ -176,7 +173,7 @@ class DentistCards extends Cards {
     const inputs = [...document.getElementsByClassName("card-input")];
     const doctorSelect = document.getElementById("createVisitSelect");
     const select = document.getElementById("prioritySelect");
-    const [purpose, description, patientName, lastVisitDate, visitDate] =
+    const [patientName, purpose, description, lastVisitDate, visitDate] =
       inputs;
 
     purpose.value = this.title;
@@ -193,7 +190,6 @@ class DentistCards extends Cards {
     const items = [...this.cardWrapper.getElementsByTagName("p")];
     items.forEach((el, index) => {
       if (index > 1) {
-        console.log(e);
         if (!el.classList.contains("active")) {
           e.target.textContent = "Show less";
           el.classList.add("active");

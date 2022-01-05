@@ -40,7 +40,7 @@ class VisitTherapist extends Visit {
     const inputs = [...document.getElementsByClassName("card-input")];
     const doctor = document.getElementById("createVisitSelect");
     const select = document.getElementById("prioritySelect");
-    const [purpose, description, patientName, age, visitDate] = inputs;
+    const [patientName, purpose, description, age, visitDate] = inputs;
 
     const data = {
       doctor: doctor.value,
