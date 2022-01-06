@@ -1,5 +1,5 @@
-import Login from "./Login.js";
 import constans from "./constans.js";
+import Login from "./Login.js";
 import CreateSelect from "./CreateSelect.js";
 import Requests from "./Request.js";
 import Cards from "./Cards.js";
@@ -8,6 +8,7 @@ import VisitDentist from "./VisitDentist.js";
 import CardiologistCards from "./CardiologistCards.js";
 import TherapistCards from "./TherapistCards.js";
 import DentistCards from "./DentistCards.js";
+import "./Filter.js";
 
 const login = new Login("modal3", ["modal", "modal1"]);
 const selectDoctors = new CreateSelect("modal3", ["modal", "modal1"]);
@@ -26,7 +27,7 @@ constans.createVisitButton.addEventListener("click", (e) => {
 
 document.addEventListener("DOMContentLoaded", onLoad);
 function onLoad() {
-  if (!constans.token) {
+  if (!localStorage.token) {
     constans.createVisitButton.classList.add("btn-none");
     constans.loginButton.classList.remove("btn-none");
   } else {
@@ -35,7 +36,7 @@ function onLoad() {
     document.getElementById("filter").style.display = "flex";
     const request = new Requests(constans.URL);
     request
-      .get("", constans.token)
+      .get("", localStorage.token)
       .then((resp) => resp.json())
       .then((data) => {
         if (data.length !== 0) {
@@ -67,7 +68,6 @@ function onLoad() {
             }
           });
         } else {
-          console.log("cards were not created");
         }
       });
   }

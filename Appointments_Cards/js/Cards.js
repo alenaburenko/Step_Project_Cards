@@ -76,17 +76,25 @@ class Cards {
 
   closeCardHandler = (e) => {
     const request = new Requests(constans.URL);
-    console.log(constans.token);
-    request.delete(this.id, constans.token).then((resp) => {
+
+    request.delete(this.id, localStorage.token).then((resp) => {
       if (resp.status === 200) {
         e.target.closest(".card-wrapper").remove();
 
         const getRequest = new Requests(constans.URL);
         getRequest
-          .get("", constans.token)
+          .get("", localStorage.token)
           .then((resp) => resp.json())
-          .then((data) => console.log(data));
-        console.log("card was removed successfully!");
+          .then((data) => {
+            if (data.length <= 0) {
+              document.querySelector(".visit__field-text").style.display =
+                "block";
+              const fieldForCards = document.getElementsByClassName(
+                "field-cards-modified"
+              )[0];
+              fieldForCards.className = "field-cards";
+            }
+          });
       }
     });
   };
@@ -119,14 +127,13 @@ class Cards {
 
       const request = new Requests(constans.URL);
       request
-        .put("", JSON.stringify(data), this.id, constans.token)
+        .put("", JSON.stringify(data), this.id, localStorage.token)
         .then((resp) => resp.json())
         .then((data) => {
           const card = new Cards(data, constans.fieldCardsContainer);
           card.render();
           this.cardWrapper.remove();
           document.getElementById("edit-modal").remove();
-          console.log("PUT is succesful");
         });
     };
 
@@ -144,7 +151,6 @@ class Cards {
     e.preventDefault();
 
     const items = [...this.cardWrapper.getElementsByTagName("p")];
-    console.log(items);
   };
 }
 

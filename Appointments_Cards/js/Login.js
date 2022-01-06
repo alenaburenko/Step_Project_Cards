@@ -68,7 +68,7 @@ class Login extends Modal {
             constans.createVisitButton.classList.remove("btn-none");
             document.getElementById("filter").style.display = "flex";
             request
-              .get("", constans.token)
+              .get("", localStorage.token)
               .then((resp) => resp.json())
               .then((data) => {
                 if (data.length !== 0) {
@@ -79,7 +79,6 @@ class Login extends Modal {
                   textNoItems.style.display = "none";
                   fieldForCards.className = "field-cards-modified";
                   data.forEach((element) => {
-                    console.log(element.doctor);
                     if (element.doctor === "Dentist") {
                       const card1 = new DentistCards(
                         element,
@@ -101,7 +100,6 @@ class Login extends Modal {
                     }
                   });
                 } else {
-                  console.log("error");
                 }
               });
           } else {
