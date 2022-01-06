@@ -2,15 +2,27 @@ import constans from "./constans.js";
 import Requests from "./Request.js";
 import Visit from "./Visit.js";
 import Modal from "./Modal.js";
+import Cards from "./Cards.js";
+import Input from "./Input.js";
 
-class Cards {
-  constructor({ description, title, patientName, id, priority }, url) {
-    this.description = description;
-    this.title = title;
-    this.patientName = patientName;
-    this.id = id;
-    this.priority = priority;
-    this.url = url;
+class DentistCards extends Cards {
+  constructor(
+    {
+      description,
+      title,
+      patientName,
+      id,
+      priority,
+      lastVisitDate,
+      doctor,
+      visitDate,
+    },
+    url
+  ) {
+    super({ description, title, patientName, id, priority }, url);
+    this.doctor = doctor;
+    this.visitDate = visitDate;
+    this.lastVisitDate = lastVisitDate;
   }
 
   render() {
@@ -23,12 +35,17 @@ class Cards {
       "d-flex",
       "flex-column",
       "p-4",
-      "bg-primary"
+      "bg-success",
+      "bg-gradient"
     );
 
     const purposeVisit = document.createElement("p");
     purposeVisit.textContent = `The problem is: ${this.title}`;
     purposeVisit.classList.add("card-info");
+
+    const doctorName = document.createElement("p");
+    doctorName.textContent = `The doctor is: ${this.doctor}`;
+    doctorName.classList.add("card-info", "active");
 
     const shortDescription = document.createElement("p");
     shortDescription.textContent = `Description: ${this.description}`;
@@ -36,11 +53,19 @@ class Cards {
 
     const fullName = document.createElement("p");
     fullName.textContent = `Patient: ${this.patientName}`;
-    fullName.classList.add("card-info");
+    fullName.classList.add("card-info", "active");
 
     const priority = document.createElement("p");
     priority.textContent = `Priority: ${this.priority}`;
-    priority.classList.add("font-weight-bold");
+    priority.classList.add("card-info", "font-weight-bold");
+
+    const lastVisit = document.createElement("p");
+    lastVisit.textContent = `Last visit date: ${this.lastVisitDate}`;
+    lastVisit.classList.add("card-info", "font-weight-bold");
+
+    const visitTime = document.createElement("p");
+    visitTime.textContent = `Visit date: ${this.visitDate}`;
+    visitTime.classList.add("card-info", "font-weight-bold");
 
     const editBtn = document.createElement("a");
     editBtn.textContent = "Edit";
@@ -63,10 +88,13 @@ class Cards {
     closetBtn.classList.add("text-danger", "close-btn", "d-inline", "card-btn");
 
     this.cardWrapper.append(
-      priority,
+      doctorName,
       fullName,
+      priority,
       purposeVisit,
       shortDescription,
+      lastVisit,
+      visitTime,
       showmoreBtn,
       editBtn,
       closetBtn
@@ -74,36 +102,11 @@ class Cards {
     this.url.append(this.cardWrapper);
   }
 
-  closeCardHandler = (e) => {
-    const request = new Requests(constans.URL);
-
-    request.delete(this.id, localStorage.token).then((resp) => {
-      if (resp.status === 200) {
-        e.target.closest(".card-wrapper").remove();
-
-        const getRequest = new Requests(constans.URL);
-        getRequest
-          .get("", localStorage.token)
-          .then((resp) => resp.json())
-          .then((data) => {
-            if (data.length <= 0) {
-              document.querySelector(".visit__field-text").style.display =
-                "block";
-              const fieldForCards = document.getElementsByClassName(
-                "field-cards-modified"
-              )[0];
-              fieldForCards.className = "field-cards";
-            }
-          });
-      }
-    });
-  };
-
   editHandler = (e) => {
     const modalEditWindow = new Modal(
       "edit-modal",
       ["modal", "modal-content"],
-      "test"
+      "You're editing patient's card..."
     );
 
     const newModal = modalEditWindow.render();
@@ -117,20 +120,27 @@ class Cards {
       e.preventDefault();
 
       const inputs = [...document.getElementsByClassName("card-input")];
-      const [purpose, description, patientName] = inputs;
+      const doctorSelect = document.getElementById("createVisitSelect");
+      const select = document.getElementById("prioritySelect");
+      const [patientName, purpose, description, lastVisitDate, visitDate] =
+        inputs;
 
       const data = {
+        doctor: this.doctor,
         title: purpose.value,
         description: description.value,
         patientName: patientName.value,
+        visitDate: visitDate.value,
+        lastVisitDate: lastVisitDate.value,
+        priority: select.value,
       };
 
       const request = new Requests(constans.URL);
       request
-        .put("", JSON.stringify(data), this.id, localStorage.token)
+        .put("", JSON.stringify(data), this.id, constans.token)
         .then((resp) => resp.json())
         .then((data) => {
-          const card = new Cards(data, constans.fieldCardsContainer);
+          const card = new DentistCards(data, constans.fieldCardsContainer);
           card.render();
           this.cardWrapper.remove();
           document.getElementById("edit-modal").remove();
@@ -139,19 +149,52 @@ class Cards {
 
     editForm.render();
 
+    const dataInput = document.getElementById("visitDate").closest("label");
+    const lastVisitLabel = document.createElement("label");
+    lastVisitLabel.textContent = "Last visit date:";
+
+    const lastVisit = new Input({
+      type: "date",
+      name: "lastVisitDate",
+      isRequired: true,
+      id: "lastVisitDate",
+      classes: ["lastVisitDate", "card-input"],
+      placeholder: "start typing...",
+      errorText: "all fields must be filled!",
+    }).render();
+    lastVisitLabel.append(lastVisit);
+    dataInput.before(lastVisitLabel);
+
     const inputs = [...document.getElementsByClassName("card-input")];
-    const [purpose, description, patientName] = inputs;
+    const doctorSelect = document.getElementById("createVisitSelect");
+    const select = document.getElementById("prioritySelect");
+    const [patientName, purpose, description, lastVisitDate, visitDate] =
+      inputs;
 
     purpose.value = this.title;
     description.value = this.description;
     patientName.value = this.patientName;
+    visitDate.value = this.visitDate;
+    lastVisitDate.value = this.lastVisitDate;
+    select.value = this.priority;
   };
 
   showMore = (e) => {
     e.preventDefault();
 
     const items = [...this.cardWrapper.getElementsByTagName("p")];
+    items.forEach((el, index) => {
+      if (index > 1) {
+        if (!el.classList.contains("active")) {
+          e.target.textContent = "Show less";
+          el.classList.add("active");
+        } else {
+          el.classList.remove("active");
+          e.target.textContent = "Show more";
+        }
+      }
+    });
   };
 }
 
-export default Cards;
+export default DentistCards;
