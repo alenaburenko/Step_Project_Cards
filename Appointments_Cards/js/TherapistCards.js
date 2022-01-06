@@ -137,8 +137,6 @@ class TherapistCards extends Cards {
           card.render();
           this.cardWrapper.remove();
           document.getElementById("edit-modal").remove();
-          console.log(data);
-          console.log("PUT is succesful");
         });
     };
 
@@ -163,7 +161,6 @@ class TherapistCards extends Cards {
 
     dataInput.before(patientAgeLabel);
 
-    console.log(this.doctor);
     const inputs = [...document.getElementsByClassName("card-input")];
     const doctorSelect = document.getElementById("createVisitSelect");
     const select = document.getElementById("prioritySelect");

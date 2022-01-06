@@ -5,8 +5,6 @@ import Modal from "./Modal.js";
 import Cards from "./Cards.js";
 import Input from "./Input.js";
 
-// Why can't access VisitDentist!!!????
-
 class DentistCards extends Cards {
   constructor(
     {
@@ -146,8 +144,6 @@ class DentistCards extends Cards {
           card.render();
           this.cardWrapper.remove();
           document.getElementById("edit-modal").remove();
-          console.log(data);
-          console.log("PUT is succesful");
         });
     };
 
@@ -156,7 +152,6 @@ class DentistCards extends Cards {
     const dataInput = document.getElementById("visitDate").closest("label");
     const lastVisitLabel = document.createElement("label");
     lastVisitLabel.textContent = "Last visit date:";
-    // test.setAttribute("for", "test");
 
     const lastVisit = new Input({
       type: "date",

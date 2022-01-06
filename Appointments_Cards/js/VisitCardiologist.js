@@ -117,14 +117,18 @@ class VisitCardiologist extends Visit {
     const form = document.getElementById("modal3");
     if (form) form.remove();
 
-    console.log(data);
-
     const request = new Requests(constans.URL);
     const tokenID = localStorage.token;
     request
       .post(JSON.stringify(data), "", tokenID)
       .then((resp) => resp.json())
       .then((data) => {
+        document.querySelector(".visit__field-text").style.display = "none";
+        if (document.getElementsByClassName("field-cards")[0]) {
+          const fieldForCards =
+            document.getElementsByClassName("field-cards")[0];
+          fieldForCards.className = "field-cards-modified";
+        }
         if (data.doctor === "Dentist") {
           const card = new DentistCards(data, constans.fieldCardsContainer);
           card.render();

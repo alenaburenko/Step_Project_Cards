@@ -5,8 +5,6 @@ import Modal from "./Modal.js";
 import Cards from "./Cards.js";
 import Input from "./Input.js";
 
-// Why can't access VisitCardiol!!!????
-
 class CardiologistCards extends Cards {
   constructor(
     {
@@ -186,8 +184,6 @@ class CardiologistCards extends Cards {
           card.render();
           this.cardWrapper.remove();
           document.getElementById("edit-modal").remove();
-          console.log(data);
-          console.log("PUT is succesful");
         });
     };
 
@@ -292,7 +288,6 @@ class CardiologistCards extends Cards {
     const items = [...this.cardWrapper.getElementsByTagName("p")];
     items.forEach((el, index) => {
       if (index > 1) {
-        console.log(e);
         if (!el.classList.contains("active")) {
           e.target.textContent = "Show less";
           el.classList.add("active");

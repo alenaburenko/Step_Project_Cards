@@ -24,7 +24,6 @@ filterBtn.addEventListener("input", async (ev) => {
           ]
             .join()
             .toLowerCase();
-          console.log(strSearch);
           const value = inputSearch.toLowerCase();
           if (strSearch.includes(value)) {
             renderAllCards(el);
@@ -33,7 +32,6 @@ filterBtn.addEventListener("input", async (ev) => {
         if (!inputSearch) {
           renderAllCards(el);
         }
-        // }
       });
     });
 });
@@ -71,7 +69,6 @@ priorityVisit.addEventListener("change", (e) => {
     .then((resp) => resp.json())
     .then((data) => {
       data.forEach((el) => {
-        console.log(priorityVisit.value, el.priority);
         if (priorityVisit.value === "Обычная" && el.priority === "Low") {
           renderAllCards(el);
         } else if (

@@ -14,12 +14,10 @@ class VisitDentist extends Visit {
 
   render() {
     super.render();
-    // console.log(super.render);
     const dataInput = document.getElementById("visitDate").closest("label");
 
     const lastVisitLabel = document.createElement("label");
     lastVisitLabel.textContent = "Last visit date:";
-    // test.setAttribute("for", "test");
 
     const lastVisit = new Input({
       type: "date",
@@ -32,22 +30,6 @@ class VisitDentist extends Visit {
     }).render();
 
     lastVisitLabel.append(lastVisit);
-
-    // const test2 = document.createElement("label");
-    // test2.textContent = "test2:";
-    // test2.setAttribute("for", "test");
-
-    // const someTest2 = new Input({
-    //   type: "text",
-    //   name: "purpose",
-    //   isRequired: true,
-    //   id: "test2",
-    //   classes: ["test2", "card-input"],
-    //   placeholder: "start typing test...",
-    //   errorText: "all fields must be filled!",
-    // }).render();
-
-    // test2.append(someTest2);
 
     dataInput.before(lastVisitLabel);
   }
@@ -79,7 +61,13 @@ class VisitDentist extends Visit {
       .post(JSON.stringify(data), "", tokenID)
       .then((resp) => resp.json())
       .then((data) => {
-        console.log(data);
+        document.querySelector(".visit__field-text").style.display = "none";
+        if (document.getElementsByClassName("field-cards")[0]) {
+          const fieldForCards =
+            document.getElementsByClassName("field-cards")[0];
+          fieldForCards.className = "field-cards-modified";
+        }
+
         if (data.doctor === "Dentist") {
           const card = new DentistCards(data, constans.fieldCardsContainer);
           card.render();
@@ -88,11 +76,6 @@ class VisitDentist extends Visit {
           card2.render();
         }
       });
-    // const getRequest = new Requests(constans.URL);
-    // getRequest
-    //   .get("", tokenID)
-    //   .then((resp) => resp.json())
-    //   .then((data) => console.log(data));
   }
 }
 

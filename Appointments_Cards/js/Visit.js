@@ -2,7 +2,6 @@
 import Input from "./Input.js";
 import Requests from "./Request.js";
 import constans from "./constans.js";
-// import Cards from "./Cards.js";
 import DentistCards from "./DentistCards.js";
 import CardiologistCards from "./CardiologistCards.js";
 import TherapistCards from "./TherapistCards.js";
@@ -47,11 +46,8 @@ class Visit {
     }).render();
     purposeLabel.append(purposeOfVisit);
 
-    console.log(purposeLabel);
-
     const descriptionLabel = document.createElement("label");
     descriptionLabel.textContent = "Short description of visit:";
-    // descriptionLabel.setAttribute("for", "description");
 
     const visitDescription = new Input({
       type: "text",
@@ -66,7 +62,6 @@ class Visit {
 
     const patientNameLabel = document.createElement("label");
     patientNameLabel.textContent = "Full name of patient:";
-    // patientNameLabel.setAttribute("for", "patientName");
 
     const patientName = new Input({
       type: "text",
@@ -81,7 +76,6 @@ class Visit {
 
     const dateOfVisitLabel = document.createElement("label");
     dateOfVisitLabel.textContent = "Enter date of visit:";
-    // dateOfVisitLabel.setAttribute("for", "visitDate");
 
     const dateOfVisit = new Input({
       type: "date",

@@ -23,8 +23,6 @@ class CreateSelect extends Modal {
     createVisitSelect.addOption("Cardiologist", "Cardiologist");
     createVisitSelect.baseAttr("createVisitSelect");
     wrapper.classList.add("form__modal-check-doctor");
-    // const label = document.createElement("lebel");
-    // label.textContent = "Choose your doctor:";
     wrapper.classList.add("wrapper__modal-check-doctor");
 
     select.addEventListener("change", (e) => {
@@ -39,8 +37,6 @@ class CreateSelect extends Modal {
     return wrapper;
   }
   chengeDoctor(select) {
-    console.log(select.value);
-
     if (select.value === "Cardiologist") {
       const visitdentist = new VisitCardiologist(constans.modalContent[0], "");
       visitdentist.render();
